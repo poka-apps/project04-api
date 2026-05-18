@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/Solution items/">
+    <File Path=".dockerignore" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Folder Name="/Src/">
+    <Project Path="Project04.Api/Project04.Api.csproj" Id="852c5885-c286-42fd-878d-ed5cec7aeca2" />
+    <Project Path="Project04.Application/Project04.Application.csproj" Id="13878ee8-5d4c-4f35-94b5-7fd7614cefb2" />
+    <Project Path="Project04.Domain/Project04.Domain.csproj" Id="2efd5424-d9cc-45e5-8a3e-e6d222ec08f1" />
+    <Project Path="Project04.Infrastructure/Project04.Infrastructure.csproj" Id="1168d627-9e3f-4b89-8963-e7115732eb48" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Project04.Api.Tests/Project04.Api.Tests.csproj" Id="d37cc23c-1b0f-4301-94af-393868e9a4f5" />
+    <Project Path="Project04.Application.Tests/Project04.Application.Tests.csproj" Id="09d82419-5857-4b68-94f6-6a557676af42" />
+    <Project Path="Project04.Domain.Tests/Project04.Domain.Tests.csproj" Id="b1627551-b46d-4a21-ad96-687941eff3ab" />
+    <Project Path="Project04.Tests.Shared/Project04.Tests.Shared.csproj" Id="3bb9f7e0-d007-4b27-aaae-18f3a55fc51f" />
+  </Folder>
+</Solution>

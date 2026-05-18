@@ -1,0 +1,16 @@
+﻿global using Microsoft.Extensions.DependencyInjection;
+global using Project04.Application.Services;
+global using FluentValidation;
+global using MediatR;
+global using Microsoft.Extensions.Logging;
+global using Project04.Application.Providers;
+global using Project04.Domain;
+global using Project04.Domain.Enums;
+global using System.Globalization;
+global using Microsoft.EntityFrameworkCore;
+global using Project04.Domain.Entities;
+global using Project04.Application.Repositories;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Project04.Domain.ValueObjects;
+global using FluentMigrator;
+global using FluentMigrator.Runner;

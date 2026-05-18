@@ -1,0 +1,10 @@
+﻿global using Project04.Domain.Enums;
+global using Microsoft.IdentityModel.Tokens;
+global using Project04.Domain.Interfaces;
+global using MediatR;
+global using Microsoft.EntityFrameworkCore;
+global using Project04.Domain.ValueObjects;
+global using Project04.Domain.Entities;
+global using Project04.Domain;
+global using Project04.Extensions;
+global using System.Globalization;

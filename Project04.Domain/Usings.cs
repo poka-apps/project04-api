@@ -1,0 +1,13 @@
+﻿global using System.ComponentModel;
+global using System.Reflection;
+global using Project04.Extensions;
+global using Microsoft.Extensions.Localization;
+global using System.Globalization;
+global using Newtonsoft.Json;
+global using Newtonsoft.Json.Serialization;
+global using System.Text;
+global using shortid;
+global using MediatR;
+global using System.Net.Mail;
+global using System.Text.RegularExpressions;
+global using System.Security.Cryptography;
