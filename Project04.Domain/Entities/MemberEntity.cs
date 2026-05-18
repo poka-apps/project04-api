@@ -2,7 +2,7 @@
 
 namespace Project04.Domain.Entities
 {
-    public class MemberEntity : BaseEntity<MemberId, Guid>
+    public class MemberEntity : BaseEntity<MemberId>
     {
         public UserId UserId { get; private set; }
 

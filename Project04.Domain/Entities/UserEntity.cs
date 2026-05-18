@@ -3,7 +3,7 @@ using Project04.Domain.ValueObjects;
 
 namespace Project04.Domain.Entities
 {
-    public class UserEntity : BaseEntity<UserId, Guid>
+    public class UserEntity : BaseEntity<UserId>
     {
         public UserRoleEnums Role { get; private set; } = null!;
         public Name Firstname { get; private set; } = null!;

@@ -2,7 +2,7 @@
 
 namespace Project04.Domain.Entities
 {
-    public class BudgetEntity : BaseDescribeEntity<BudgetId, Guid>
+    public class BudgetEntity : BaseDescribeEntity<BudgetId>
     {
     }
 }

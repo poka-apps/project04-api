@@ -1,6 +1,6 @@
 ﻿namespace Project04.Domain.ValueObjects
 {
-    public record TransactionId : BaseObjectId<Guid>
+    public record TransactionId : BaseEntityId
     {
         protected override string _type => "txn";
 

@@ -2,7 +2,7 @@
 
 namespace Project04.Domain.Entities
 {
-    public class TransactionEntity : BaseDescribeEntity<TransactionId, Guid>
+    public class TransactionEntity : BaseDescribeEntity<TransactionId>
     {
         public BudgetId BudgetId { get; private set; }
         public MemberId? MemberId { get; private set; }

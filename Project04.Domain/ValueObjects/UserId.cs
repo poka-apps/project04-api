@@ -1,6 +1,6 @@
 ﻿namespace Project04.Domain.ValueObjects
 {
-    public record UserId : BaseObjectId<Guid>
+    public record UserId : BaseEntityId
     {
         protected override string _type => "usr";
 

@@ -2,14 +2,10 @@
 
 namespace Project04.Domain.Entities
 {
-    public abstract class BaseEntity<TObjectId, TValue> : BaseEntity
-        where TObjectId : BaseObjectId<TValue>
+    public abstract class BaseEntity<TObjectId>
+        where TObjectId : BaseEntityId
     {
         public TObjectId Id { get; protected set; } = default!;
-    }
-
-    public abstract class BaseEntity
-    {
         public DateTime CreatedOn { get; protected set; }
 
         protected BaseEntity()

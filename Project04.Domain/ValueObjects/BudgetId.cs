@@ -1,6 +1,6 @@
 ﻿namespace Project04.Domain.ValueObjects
 {
-    public record BudgetId : BaseObjectId<Guid>
+    public record BudgetId : BaseEntityId
     {
         protected override string _type => "bud";
 
