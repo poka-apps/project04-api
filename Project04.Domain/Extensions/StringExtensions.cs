@@ -18,19 +18,6 @@ namespace Project04.Extensions
         public static bool HasValue(this string value) =>
             !value.IsNullOrEmpty() && !value.IsNullOrWhiteSpace();
 
-        /// <summary>
-        /// Validate is not null and is not empty.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <exception cref="AppException"></exception>
-        public static void ValidateHasValue(this string value)
-        {
-            if (value.HasValue() == false)
-            {
-                throw new AppException(AppErrorEnums.ValueRequired, nameof(value));
-            }
-        }
-
         public static TObjectId ToObjectId<TObjectId, TValue>(this string value)
             where TObjectId : BaseObjectId<TValue>
         {
@@ -80,18 +67,6 @@ namespace Project04.Extensions
             catch
             {
                 throw new AppException(AppErrorEnums.InvalidCast, value);
-            }
-        }
-
-        public static void ValidateRegex(this string value, string pattern)
-        {
-            value.ValidateHasValue();
-
-            pattern.ValidateHasValue();
-
-            if (new Regex(pattern).IsMatch(value) == false)
-            {
-                throw new AppException(AppErrorEnums.InvalidValueFormat, value);
             }
         }
 

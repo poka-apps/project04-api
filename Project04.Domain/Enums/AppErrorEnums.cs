@@ -120,6 +120,7 @@
         LoginProviderAlreadyExist = 4090006,
         ConflictUserNameTaken = 4090007,
         ConflictRootUserAlreadyExist = 4090009,
+        ValueLowerOrEqual = 4090010,
 
         #endregion
 
