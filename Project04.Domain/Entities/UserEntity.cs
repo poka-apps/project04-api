@@ -33,6 +33,15 @@ namespace Project04.Domain.Entities
             return this;
         }
 
+        public UserEntity AttachToMember(MemberId memberId)
+        {
+            memberId.ValidateNotNull();
+
+            this.MemberId = memberId;
+
+            return this;
+        }
+
         public UserEntity ChangePassword(Password password)
         {
             password.ValidateNotNull();

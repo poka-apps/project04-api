@@ -1,92 +1,74 @@
 ﻿using Project04.Application.Repositories;
+using Project04.Application.UserManager.Commands;
 
 namespace Project04.Application.MemberManagement.Commands
 {
     public class CreateMemberCommandHandler : IRequestHandler<CreateMemberCommand, CreateMemberCommandResult>
     {
         private readonly IDbRepository _dbRepository;
+        private readonly IMediator _mediator;
 
-        public CreateMemberCommandHandler(IDbRepository dbRepository)
+        public CreateMemberCommandHandler(IDbRepository dbRepository, IMediator mediator)
         {
             _dbRepository = dbRepository;
+            _mediator = mediator;
         }
 
         public async Task<CreateMemberCommandResult> Handle(CreateMemberCommand request, CancellationToken cancellationToken)
         {
-            #region Validations
+            await this._dbRepository.BeginTransactionAsync(cancellationToken);
 
-            if (request.Email != null)
-            {
-                var doesEmailTaken = await
-                                        this._dbRepository
-                                            .Users
-                                            .AnyAsync(
-                                                l => l.Email == request.Email,
-                                                cancellationToken
-                                            );
+            #region Register user
 
-                if (doesEmailTaken)
-                {
-                    throw new AppException(AppErrorEnums.ConflictUserEmailTaken, request.Email);
-                }
-            }
+            var registerUserCommand =   new RegisterUserCommand(
+                                            firstName: request.FirstName,
+                                            lastName: request.LastName,
+                                            email: request.Email
+                                        );
 
-            if (request.Root)
-            {
-                var doesRootUserExist = await
-                                            this._dbRepository
-                                                .Users
-                                                .AnyAsync(
-                                                    l => l.Root,
-                                                    cancellationToken
-                                                );
-                if (doesRootUserExist)
-                {
-                    throw new AppException(AppErrorEnums.ConflictRootUserAlreadyExist);
-                }
-            }
+            var registerUserCommandResult = await this._mediator.Send(registerUserCommand, cancellationToken);
 
             #endregion
 
-            var userEntity = new UserEntity()
-                                .EditProfile(
-                                    firstName: request.FirstName, 
-                                    lastName: request.LastName
-                                );
+            #region Create member
 
-            if (request.Password != null)
-            {
-                userEntity.ChangePassword(request.Password);
-            }
+            var memberEntity = new MemberEntity(userId: registerUserCommandResult.UserId);
 
-            if (request.Email != null)
-            {
-                userEntity.ChangeEmail(request.Email);
-            }
-
-            if (request.Role != null)
-            {
-                userEntity.ChangeRole(request.Role);
-            }
-
-            if (request.Root)
-            {
-                userEntity.AsRoot();
-            }
-
-            await 
+            await
                 this._dbRepository
-                    .Users
+                    .Members
                     .AddAsync(
                         cancellationToken: cancellationToken,
-                        entity: userEntity
+                        entity: memberEntity
                     );
 
             await this._dbRepository.SaveChangesAsync(cancellationToken);
 
+            #endregion
+
+            #region Attach member to user
+
+            var userEntity = await 
+                                this._dbRepository
+                                    .Users
+                                    .FirstAsync(
+                                        l => l.Id == registerUserCommandResult.UserId, 
+                                        cancellationToken
+                                    );
+
+            userEntity.AttachToMember(memberEntity.Id);
+            
+            this._dbRepository.Members.Update(memberEntity);
+
+            await this._dbRepository.SaveChangesAsync(cancellationToken);
+
+            #endregion
+
+            await this._dbRepository.CommitTransactionAsync(cancellationToken);
+
             var result = new CreateMemberCommandResult
             {
-                UserId = userEntity.Id
+                MemberId = memberEntity.Id
             };
 
             return result;
