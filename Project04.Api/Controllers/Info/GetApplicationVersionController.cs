@@ -39,7 +39,7 @@ namespace Project04.Api.Controllers.Info
 
     public class GetApplicationVersionDTOResponse
     {
-        public string EnvironmentName { get; set; }
+        public string EnvironmentName { get; set; } = null!;
         public int Major { get; set; }
         public int Minor { get; set; }
         public int Build { get; set; }
