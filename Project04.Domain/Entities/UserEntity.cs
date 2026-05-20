@@ -69,6 +69,9 @@ namespace Project04.Domain.Entities
             return this;
         }
 
+        public string GetFullName() => 
+            $"{this.Firstname} {this.Lastname}".Trim();
+
         public UserEntity AsRoot()
         {
             this.Root = true;

@@ -46,7 +46,7 @@ namespace Project04.Extensions
 
             if (new Regex(pattern).IsMatch(value) == false)
             {
-                throw new AppException(AppErrorEnums.InvalidValueFormat, value);
+                throw new AppException(AppErrorEnums.InvalidRegexFormat, pattern, value);
             }
         }
 

@@ -70,6 +70,10 @@ namespace Project04.Extensions
             }
         }
 
+        public static Password ToPassword(this string value) => new(value);
+
+        public static Email ToEmail(this string value) => new(value);
+
         public static Name ToName(this string value) => new(value);
     }
 }

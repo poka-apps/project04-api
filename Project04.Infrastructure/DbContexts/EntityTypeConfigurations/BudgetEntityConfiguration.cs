@@ -43,7 +43,7 @@
                         ownedNavigationBuilder
                             .Property(l => l.From)
                             .HasColumnName("From")
-                            .IsRequired(false);
+                            .IsRequired(true);
 
                         ownedNavigationBuilder
                             .Property(l => l.To)

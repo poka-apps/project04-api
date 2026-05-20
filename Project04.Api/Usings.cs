@@ -13,3 +13,4 @@ global using Microsoft.AspNetCore.Authorization;
 global using Project04.Application.Queries;
 global using System.Net.Mime;
 global using Project04.Application.UserManager.Commands;
+global using Project04.Application.Commands;

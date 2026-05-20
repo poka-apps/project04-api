@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Project04.Domain\Project04.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Identity\" />
-  </ItemGroup>
-
 </Project>
