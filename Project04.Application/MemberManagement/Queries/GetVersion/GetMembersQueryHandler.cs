@@ -13,8 +13,14 @@ namespace Project04.Application.MemberManagement.Queries
 
         public async Task<IEnumerable<GetMembersQueryResult>> Handle(GetMembersQuery request, CancellationToken cancellationToken)
         {
-            var queryMembers = this._dbRepository.Members.AsQueryable();
-            var queryUsers = this._dbRepository.Users.AsQueryable();
+            var queryMembers =  this._dbRepository
+                                    .Members
+                                    .AsQueryable()
+                                    .AsNoTracking();
+            var queryUsers =    this._dbRepository
+                                    .Users
+                                    .AsQueryable()
+                                    .AsNoTracking();
 
             var query = from member in queryMembers
                         join user in queryUsers 
@@ -25,6 +31,7 @@ namespace Project04.Application.MemberManagement.Queries
                             UserId = user.Id,
 
                             member.CreatedOn,
+                            member.Address,
                             user.Firstname,
                             user.Lastname,
                             user.Role
@@ -40,6 +47,7 @@ namespace Project04.Application.MemberManagement.Queries
                                     FirstName = l.Firstname,
                                     MemberId = l.MemberId,
                                     LastName = l.Lastname,
+                                    Address = l.Address,
                                     UserId = l.UserId,
                                     Role = l.Role
                                 }

@@ -5,6 +5,7 @@ namespace Project04.Domain.Entities
     public class MemberEntity : BaseEntity<MemberId>
     {
         public UserId UserId { get; private set; }
+        public Address? Address { get; private set; }
 
         public MemberEntity()
         { }
@@ -14,6 +15,13 @@ namespace Project04.Domain.Entities
             userId.ValidateNotNull();
 
             UserId = userId;
+        }
+
+        public MemberEntity ChangeAddress(Address? value = null)
+        {
+            this.Address = value;
+
+            return this;
         }
     }
 }

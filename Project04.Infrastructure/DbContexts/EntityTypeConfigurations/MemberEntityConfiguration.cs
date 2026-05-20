@@ -32,6 +32,38 @@
                 .HasColumnName("CreatedOn")
                 .HasDefaultValueSql("NOW()")
                 .IsRequired();
+
+            builder
+                .OwnsOne(
+                    l => l.Address,
+                    ownedNavigationBuilder =>
+                    {
+                        ownedNavigationBuilder
+                            .Property(l => l.Street)
+                            .HasColumnName("Street")
+                            .IsRequired(true);
+
+                        ownedNavigationBuilder
+                            .Property(l => l.Street2)
+                            .HasColumnName("Street2")
+                            .IsRequired(false);
+
+                        ownedNavigationBuilder
+                            .Property(l => l.City)
+                            .HasColumnName("City")
+                            .IsRequired(true);
+
+                        ownedNavigationBuilder
+                            .Property(l => l.PostalCode)
+                            .HasColumnName("PostalCode")
+                            .IsRequired(true);
+
+                        ownedNavigationBuilder
+                            .Property(l => l.CountryCodeISO2)
+                            .HasColumnName("CountryCodeISO2")
+                            .IsRequired(true);
+                    }
+                );
         }
     }
 }

@@ -2,11 +2,12 @@
 {
     public record GetMembersQueryResult
     {
-        public UserRoleEnums Role { get; init; }
-        public MemberId MemberId { get; init; }
-        public UserId UserId { get; init; }
-        public Name FirstName { get; init; }
+        public UserRoleEnums Role { get; init; } = null!;
+        public MemberId MemberId { get; init; } = null!;
+        public UserId UserId { get; init; } = null!;
+        public Name FirstName { get; init; } = null!;
         public Name? LastName { get; init; }
+        public Address? Address { get; set; }
         public DateTime CreatedOn { get; init; }
     }
 }
