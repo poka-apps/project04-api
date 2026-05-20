@@ -7,7 +7,6 @@ global using Project04.Domain.ValueObjects;
 global using Project04.Domain.Entities;
 global using Project04.Domain;
 global using Project04.Extensions;
-global using System.Globalization;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
-global using System.Security.Cryptography;
+global using System.Globalization;

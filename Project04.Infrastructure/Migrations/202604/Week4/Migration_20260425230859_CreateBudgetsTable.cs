@@ -6,7 +6,7 @@
         public override void Up() =>
             Create
                 .Table("BUDGETS")
-                .WithColumn("Id")
+                .WithColumn("MemberId")
                     .AsGuid()
                     .PrimaryKey()
                     .WithDefaultValue(RawSql.Insert("gen_random_uuid()"))

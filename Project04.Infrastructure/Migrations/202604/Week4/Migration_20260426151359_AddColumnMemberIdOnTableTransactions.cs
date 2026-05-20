@@ -12,7 +12,7 @@
                         .ForeignKey(
                             foreignKeyName: "FK_TRANSACTIONS_MEMBERS_MemberId",
                             primaryTableName: "MEMBERS",
-                            primaryColumnName: "Id"
+                            primaryColumnName: "MemberId"
                         );
     }
 }
