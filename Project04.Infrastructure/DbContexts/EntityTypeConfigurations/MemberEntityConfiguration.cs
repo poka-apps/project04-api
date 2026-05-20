@@ -39,6 +39,10 @@
                     ownedNavigationBuilder =>
                     {
                         ownedNavigationBuilder
+                            .Property(l => l.Number)
+                            .HasColumnName("Address.Number");
+
+                        ownedNavigationBuilder
                             .Property(l => l.Street)
                             .HasColumnName("Address.Street");
 

@@ -2,6 +2,7 @@
 {
     public class AddressDTO
     {
+        public string Number { get; set; }
         public string Street { get; set; }
         public string? Street2 { get; set; }
         public string City { get; set; }
@@ -21,6 +22,7 @@
             PostalCode = address.PostalCode;
             Street2 = address.Street2;
             Street = address.Street;
+            Number = address.Number;
             City = address.City;
         }
 
@@ -29,6 +31,7 @@
             postalCode: this.PostalCode, 
             street2: this.Street2, 
             street: this.Street, 
+            number: this.Number,
             city: this.City
         );
     }

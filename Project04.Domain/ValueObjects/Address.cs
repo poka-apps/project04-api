@@ -2,6 +2,7 @@
 {
     public sealed record Address
     {
+        public string Number { get; private set; }
         public string Street { get; private set; }
         public string? Street2 { get; private set; }
         public string City { get; private set; }
@@ -9,6 +10,7 @@
         public string CountryCodeISO2 { get; private set; }
 
         public Address(
+            string number,
             string street,
             string? street2,
             string city,
@@ -16,6 +18,7 @@
             string countryCodeISO2
         )
         {
+            this.Number = number;
             this.Street = street;
             this.Street2 = street2;
             this.City = city;
@@ -27,7 +30,14 @@
             string.Join(
                 separator: ", ",
                 values: new[] {
-                    this.Street,
+                    string.Join(
+                        separator: " ", 
+                        values: new[] { 
+                            this.Number, 
+                            this.Street
+                        }
+                        .Where(l => !string.IsNullOrWhiteSpace(l))
+                    ),
                     this.Street2,
                     this.PostalCode,
                     this.City,

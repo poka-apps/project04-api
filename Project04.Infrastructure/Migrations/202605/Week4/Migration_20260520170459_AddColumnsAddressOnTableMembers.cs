@@ -6,6 +6,13 @@
         public override void Up()
         {
             Create
+                .Column("Address.Number")
+                    .OnTable("MEMBERS")
+                        .AsString(10)
+                        .Nullable()
+                        .WithColumnDescription("Part of address");
+
+            Create
                 .Column("Address.Street")
                     .OnTable("MEMBERS")
                         .AsString(100)
