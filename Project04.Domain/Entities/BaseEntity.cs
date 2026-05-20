@@ -2,6 +2,10 @@
 
 namespace Project04.Domain.Entities
 {
+    /// <summary>
+    /// Class with properties 'Id', 'CreatedOn'.
+    /// </summary>
+    /// <typeparam name="TObjectId"></typeparam>
     public abstract class BaseEntity<TObjectId>
         where TObjectId : BaseEntityId
     {

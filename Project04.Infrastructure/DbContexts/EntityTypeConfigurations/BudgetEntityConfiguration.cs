@@ -33,6 +33,23 @@
                 .Property(p => p.CreatedOn)
                 .HasColumnName("CreatedOn")
                 .HasDefaultValueSql("NOW()");
+
+            builder
+                .OwnsOne(
+                    l => l.Period,
+                    ownedNavigationBuilder =>
+                    {
+                        ownedNavigationBuilder
+                            .Property(l => l.From)
+                            .HasColumnName("From")
+                            .IsRequired(false);
+
+                        ownedNavigationBuilder
+                            .Property(l => l.To)
+                            .HasColumnName("To")
+                            .IsRequired(false);
+                    }
+                );
         }
     }
 }
