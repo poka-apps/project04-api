@@ -2,9 +2,9 @@
 
 namespace Project04.Api.Controllers.Info
 {
-    [ApiExplorerSettings(GroupName = "Informations")]
+    [ApiExplorerSettings(GroupName = "Health")]
     [Produces(MediaTypeNames.Application.Json)]
-    [ApiRoute("info/version")]
+    [ApiRoute("health")]
     [ApiController]
     public class GetApplicationVersionController : ControllerBase
     {
@@ -22,15 +22,12 @@ namespace Project04.Api.Controllers.Info
         {
             var query = new GetVersionQuery();
 
-            var queryResult = await _mediator.Send(query, cancellationToken);
+            var queryResult = await this._mediator.Send(query, cancellationToken);
 
             var result = new GetApplicationVersionDTOResponse
             {
                 EnvironmentName = queryResult.Environment.Name,
-                Revision = queryResult.Revision,
-                Build = queryResult.Build,
-                Major = queryResult.Major,
-                Minor = queryResult.Minor
+                Version = queryResult.Version
             };
 
             return Ok(result);
@@ -40,9 +37,6 @@ namespace Project04.Api.Controllers.Info
     public class GetApplicationVersionDTOResponse
     {
         public string EnvironmentName { get; set; } = null!;
-        public int Major { get; set; }
-        public int Minor { get; set; }
-        public int Build { get; set; }
-        public int Revision { get; set; }
+        public Version Version { get; set; } = null!;
     }
 }

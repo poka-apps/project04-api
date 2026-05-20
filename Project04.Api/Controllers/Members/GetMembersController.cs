@@ -16,7 +16,6 @@ namespace Project04.Api.Controllers.Members
             _mediator = mediator;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(typeof(GetMembersDTOResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Async(CancellationToken cancellationToken)

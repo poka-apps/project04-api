@@ -16,11 +16,6 @@ namespace Project04.Api.Controllers.Account
             _mediator = mediator;
         }
 
-        /// <summary>
-        /// Authenticate user (Anonymous).
-        /// </summary>
-        /// <param name="bodyData"></param>
-        /// <param name="cancellationToken"></param>
         [AllowAnonymous]
         [HttpPost]
         [ProducesResponseType(typeof(TokenDTO), StatusCodes.Status200OK)]

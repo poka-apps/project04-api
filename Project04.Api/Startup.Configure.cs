@@ -60,10 +60,6 @@ namespace Project04.Api
             // 8. 
             app.UseAuthentication();
 
-            // 8. 
-            // TODO: Implement new process, because once an user update his name, his access  token stored is no longer valid.
-            //app.UseMiddleware<ValidateAccessTokenMiddleware>();
-
             // 9. Check authorization in request
             app.UseAuthorization();
 
@@ -72,7 +68,9 @@ namespace Project04.Api
                 endpoints => {
                     endpoints
                         .MapControllers()
-                        .RequireAuthorization();
+                        .RequireAuthorization()
+                        // TODO: Remove when security implemented.
+                        .AllowAnonymous();
                 }
             );
 

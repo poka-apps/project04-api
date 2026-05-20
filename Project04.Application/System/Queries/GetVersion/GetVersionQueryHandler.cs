@@ -18,10 +18,7 @@ namespace Project04.Application.Queries
             var result = new GetVersionQueryResult
             {
                 Environment = _appSettingsProvider.Environment,
-                Revision = version.Revision,
-                Build = version.Build,
-                Major = version.Major,
-                Minor = version.Minor
+                Version = version
             };
 
             return Task.FromResult(result);
