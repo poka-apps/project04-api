@@ -24,7 +24,8 @@ namespace Project04.Api.Controllers.Members
             var command =   new CreateMemberCommand(
                                 address: bodyData.Address?.GetAddress(),
                                 firstName: bodyData.FirstName.ToName(),
-                                lastName: bodyData.LastName?.ToName(),
+                                lastname: bodyData.Lastname?.ToName(),
+                                nickname: bodyData.Nickname?.ToName(),
                                 phone: bodyData.Phone?.GetPhone(),
                                 email: bodyData.Email?.ToEmail()
                             );
@@ -42,7 +43,8 @@ namespace Project04.Api.Controllers.Members
         public string FirstName { get; set; } = null!;
         public AddressDTO? Address { get; set; }
         public PhoneDTO? Phone { get; set; }
-        public string? LastName { get; set; }
+        public string? Lastname { get; set; }
+        public string? Nickname { get; set; }
         public string? Email { get; set; }
     }
 }

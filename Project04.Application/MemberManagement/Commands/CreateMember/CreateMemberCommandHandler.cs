@@ -21,8 +21,9 @@ namespace Project04.Application.MemberManagement.Commands
             #region Register user
 
             var registerUserCommand =   new RegisterUserCommand(
-                                            firstname: request.FirstName,
-                                            lastname: request.LastName,
+                                            firstname: request.Firstname,
+                                            lastname: request.Lastname,
+                                            nickname: request.Nickname,
                                             email: request.Email
                                         );
 

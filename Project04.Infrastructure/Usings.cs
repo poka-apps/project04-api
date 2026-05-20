@@ -16,3 +16,4 @@ global using FluentMigrator;
 global using FluentMigrator.Runner;
 global using Nager.Country;
 global using PhoneNumbers;
+global using ClosedXML.Excel;

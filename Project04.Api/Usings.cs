@@ -17,3 +17,4 @@ global using Project04.Application.Commands;
 global using Project04.Domain.ValueObjects;
 global using Project04.Application.MemberManagement.Queries;
 global using PhoneNumbers;
+global using Project04.Application.MemberManagement.Commands;
