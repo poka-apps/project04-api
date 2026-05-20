@@ -2,28 +2,30 @@
 {
     public sealed record Address
     {
-        public string Number { get; private set; }
-        public string Street { get; private set; }
+        public string? Number { get; private set; }
+        public string? Street { get; private set; }
         public string? Street2 { get; private set; }
-        public string City { get; private set; }
-        public string PostalCode { get; private set; }
+        public string? City { get; private set; }
+        public string? PostalCode { get; private set; }
         public string CountryCodeISO2 { get; private set; }
 
         public Address(
-            string number,
-            string street,
+            string? number,
+            string? street,
             string? street2,
-            string city,
-            string postalCode,
+            string? city,
+            string? postalCode,
             string countryCodeISO2
         )
         {
+            countryCodeISO2.ValidateNotEmpty();
+
+            this.CountryCodeISO2 = countryCodeISO2.Humanize(LetterCasing.AllCaps);
+            this.PostalCode = postalCode;
+            this.Street2 = street2;
             this.Number = number;
             this.Street = street;
-            this.Street2 = street2;
             this.City = city;
-            this.PostalCode = postalCode;
-            this.CountryCodeISO2 = countryCodeISO2;
         }
 
         public override string ToString() =>
@@ -41,7 +43,7 @@
                     this.Street2,
                     this.PostalCode,
                     this.City,
-                    this.CountryCodeISO2
+                    this.CountryCodeISO2?.Humanize(LetterCasing.AllCaps)
                 }
                 .Where(l => !string.IsNullOrWhiteSpace(l))
             );
