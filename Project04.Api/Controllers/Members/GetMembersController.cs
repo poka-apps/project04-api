@@ -1,6 +1,5 @@
 ﻿using Project04.Api.Infrastructure.Attributes;
-using Project04.Application.MemberManagement.Queries;
-using Project04.Domain.ValueObjects;
+using Project04.Api.Infrastructure.DTOs;
 
 namespace Project04.Api.Controllers.Members
 {
@@ -10,10 +9,12 @@ namespace Project04.Api.Controllers.Members
     [ApiController]
     public class GetMembersController : ControllerBase
     {
+        private readonly ICountryProvider _countryProvider;
         private readonly IMediator _mediator;
 
-        public GetMembersController(IMediator mediator)
+        public GetMembersController(IMediator mediator, ICountryProvider countryProvider)
         {
+            _countryProvider = countryProvider;
             _mediator = mediator;
         }
 
@@ -29,13 +30,18 @@ namespace Project04.Api.Controllers.Members
                             .Select(
                                 l => new GetMembersDTOResponse
                                 {
+                                    Address =   l.Address != null
+                                                    ?   new AddressDTO(
+                                                            countryProvider: this._countryProvider,
+                                                            address: l.Address
+                                                        )
+                                                    : null,
                                     Firstname = l.Firstname.Value,
                                     Lastname = l.Lastname?.Value,
                                     Nickname = l.Nickname?.Value,
                                     UserId = l.UserId.ToString(),
                                     Id = l.MemberId.ToString(),
                                     CreatedOn = l.CreatedOn,
-                                    Address = l.Address,
                                     Role = l.Role.Name
                                 }
                             )
@@ -53,7 +59,7 @@ namespace Project04.Api.Controllers.Members
         public string Id { get; set; } = null!;
         public string? Lastname { get; set; }
         public string? Nickname { get; set; }
-        public Address? Address { get; set; }
+        public AddressDTO? Address { get; set; }
         public DateTime CreatedOn { get; set; }
     }
 }

@@ -64,6 +64,12 @@ namespace Project04.Extensions
                     .AddSingleton<IBoostrapperService, BoostrapperService>();
             }
 
+            // Providers
+            {
+                serviceCollection
+                    .AddSingleton<ICountryProvider>(new CountryProvider());
+            }
+
             // MediatR
             {
                 serviceCollection

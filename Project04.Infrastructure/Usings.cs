@@ -14,3 +14,4 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Project04.Domain.ValueObjects;
 global using FluentMigrator;
 global using FluentMigrator.Runner;
+global using Nager.Country;
