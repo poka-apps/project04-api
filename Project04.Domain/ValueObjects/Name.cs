@@ -1,6 +1,4 @@
-﻿using Humanizer;
-
-namespace Project04.Domain.ValueObjects
+﻿namespace Project04.Domain.ValueObjects
 {
     public record Name
     {

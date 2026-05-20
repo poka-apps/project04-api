@@ -12,3 +12,4 @@ global using System.Net.Mail;
 global using System.Text.RegularExpressions;
 global using System.Security.Cryptography;
 global using PhoneNumbers;
+global using Humanizer;

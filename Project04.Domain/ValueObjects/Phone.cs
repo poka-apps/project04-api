@@ -14,7 +14,7 @@
         {
             countryCodeIso2.ValidateNotEmpty();
 
-            CountryCodeIso2 = countryCodeIso2;
+            CountryCodeIso2 = countryCodeIso2.Humanize(LetterCasing.AllCaps);
             Number = number;
         }
 
@@ -22,7 +22,7 @@
         {
             phoneNumberUtil.ValidateNotNull();
 
-            var result = phoneNumberUtil.GetCountryCodeForRegion(this.CountryCodeIso2);
+            var result = phoneNumberUtil.GetCountryCodeForRegion(this.CountryCodeIso2.Humanize(LetterCasing.AllCaps));
 
             return result;
         }
