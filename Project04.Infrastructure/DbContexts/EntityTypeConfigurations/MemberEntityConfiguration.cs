@@ -28,9 +28,10 @@
                 .IsRequired();
 
             builder
-                .Property(p => p.CreatedOn)
+                .Property(l => l.CreatedOn)
                 .HasColumnName("CreatedOn")
-                .HasDefaultValueSql("NOW()");
+                .HasDefaultValueSql("NOW()")
+                .IsRequired();
         }
     }
 }

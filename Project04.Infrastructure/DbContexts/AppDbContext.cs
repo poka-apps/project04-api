@@ -8,6 +8,8 @@
 
         public DbSet<BudgetEntity> Budgets => this.Set<BudgetEntity>();
 
+        public DbSet<EventEntity> Events => this.Set<EventEntity>();
+
         public DbSet<UserEntity> Users => this.Set<UserEntity>();
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
