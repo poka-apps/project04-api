@@ -30,5 +30,13 @@
             Street = address.Street;
             City = address.City;
         }
+
+        public Address GetAddress() => new(
+            countryCodeISO2: this.CountryCodeISO2,
+            postalCode: this.PostalCode, 
+            street2: this.Street2, 
+            street: this.Street, 
+            city: this.City
+        );
     }
 }

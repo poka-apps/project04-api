@@ -70,6 +70,12 @@ namespace Project04.Extensions
                     .AddSingleton<ICountryProvider>(new CountryProvider());
             }
 
+            // Others
+            {
+                serviceCollection
+                    .AddSingleton<PhoneNumberUtil>(PhoneNumberUtil.GetInstance());
+            }
+
             // MediatR
             {
                 serviceCollection

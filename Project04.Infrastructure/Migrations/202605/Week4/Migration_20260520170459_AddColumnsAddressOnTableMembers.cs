@@ -6,35 +6,35 @@
         public override void Up()
         {
             Create
-                .Column("Street")
+                .Column("Address.Street")
                     .OnTable("MEMBERS")
                         .AsString(100)
                         .Nullable()
                         .WithColumnDescription("Part of address");
 
             Create
-                .Column("Street2")
+                .Column("Address.Street2")
                     .OnTable("MEMBERS")
                         .AsString(100)
                         .Nullable()
                         .WithColumnDescription("Part of address");
 
             Create
-                .Column("City")
+                .Column("Address.City")
                     .OnTable("MEMBERS")
                         .AsString(100)
                         .Nullable()
                         .WithColumnDescription("Part of address");
 
             Create
-                .Column("PostalCode")
+                .Column("Address.PostalCode")
                     .OnTable("MEMBERS")
                         .AsString(20)
                         .Nullable()
                         .WithColumnDescription("Part of address");
 
             Create
-                .Column("CountryCodeISO2")
+                .Column("Address.CountryCodeISO2")
                     .OnTable("MEMBERS")
                         .AsString(2)
                         .Nullable()

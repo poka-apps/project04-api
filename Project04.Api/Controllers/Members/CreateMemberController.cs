@@ -1,4 +1,5 @@
 ﻿using Project04.Api.Infrastructure.Attributes;
+using Project04.Api.Infrastructure.DTOs;
 using Project04.Application.MemberManagement.Commands;
 
 namespace Project04.Api.Controllers.Members
@@ -21,8 +22,10 @@ namespace Project04.Api.Controllers.Members
         public async Task<IActionResult> Async([FromBody] CreateMemberDTORequest bodyData, CancellationToken cancellationToken)
         {
             var command =   new CreateMemberCommand(
+                                address: bodyData.Address?.GetAddress(),
                                 firstName: bodyData.FirstName.ToName(),
                                 lastName: bodyData.LastName?.ToName(),
+                                phone: bodyData.Phone?.GetPhone(),
                                 email: bodyData.Email?.ToEmail()
                             );
 
@@ -37,6 +40,8 @@ namespace Project04.Api.Controllers.Members
     public class CreateMemberDTORequest
     {
         public string FirstName { get; set; } = null!;
+        public AddressDTO? Address { get; set; }
+        public PhoneDTO? Phone { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
     }

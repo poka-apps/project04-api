@@ -34,6 +34,16 @@ namespace Project04.Application.MemberManagement.Commands
 
             var memberEntity = new MemberEntity(userId: registerUserCommandResult.UserId);
 
+            if (request.Address != null)
+            {
+                memberEntity.ChangeAddress(request.Address);
+            }
+
+            if (request.Phone != null)
+            {
+                memberEntity.ChangePhone(request.Phone);
+            }
+
             await
                 this._dbRepository
                     .Members

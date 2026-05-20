@@ -40,28 +40,45 @@
                     {
                         ownedNavigationBuilder
                             .Property(l => l.Street)
-                            .HasColumnName("Street")
-                            .IsRequired(true);
+                            .HasColumnName("Address.Street")
+                            .IsRequired(false);
 
                         ownedNavigationBuilder
                             .Property(l => l.Street2)
-                            .HasColumnName("Street2")
+                            .HasColumnName("Address.Street2")
                             .IsRequired(false);
 
                         ownedNavigationBuilder
                             .Property(l => l.City)
-                            .HasColumnName("City")
-                            .IsRequired(true);
+                            .HasColumnName("Address.City")
+                            .IsRequired(false);
 
                         ownedNavigationBuilder
                             .Property(l => l.PostalCode)
-                            .HasColumnName("PostalCode")
-                            .IsRequired(true);
+                            .HasColumnName("Address.PostalCode")
+                            .IsRequired(false);
 
                         ownedNavigationBuilder
                             .Property(l => l.CountryCodeISO2)
-                            .HasColumnName("CountryCodeISO2")
-                            .IsRequired(true);
+                            .HasColumnName("Address.CountryCodeISO2")
+                            .IsRequired(false);
+                    }
+                );
+
+            builder
+                .OwnsOne(
+                    l => l.Phone,
+                    ownedNavigationBuilder =>
+                    {
+                        ownedNavigationBuilder
+                            .Property(l => l.CountryCodeIso2)
+                            .HasColumnName("Phone.CountryCodeIso2")
+                            .IsRequired(false);
+
+                        ownedNavigationBuilder
+                            .Property(l => l.Number)
+                            .HasColumnName("Phone.Number")
+                            .IsRequired(false);
                     }
                 );
         }
