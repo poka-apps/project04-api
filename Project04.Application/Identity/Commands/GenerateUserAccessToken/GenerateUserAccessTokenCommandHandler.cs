@@ -1,4 +1,5 @@
 ﻿using Project04.Application.Providers;
+using Project04.Application.Queries;
 using Project04.Application.Repositories;
 
 namespace Project04.Application.Commands
@@ -7,14 +8,17 @@ namespace Project04.Application.Commands
     {
         private readonly IAppSettingsProvider _appSettingsProvider;
         private readonly IDbRepository _dbRepository;
+        private readonly IMediator _mediator;
 
         public GenerateUserAccessTokenCommandHandler(
             IAppSettingsProvider appSettingsProvider,
-            IDbRepository dbRepository
+            IDbRepository dbRepository,
+            IMediator mediator
         )
         {
             _appSettingsProvider = appSettingsProvider;
             _dbRepository = dbRepository;
+            _mediator = mediator;
         }
 
         public async Task<GenerateUserAccessTokenCommandResult> Handle(GenerateUserAccessTokenCommand request, CancellationToken cancellationToken)
@@ -45,19 +49,20 @@ namespace Project04.Application.Commands
             }
             else if (request.RefreshToken != null)
             {
-                var userId = this.ReadAccessToken(request.RefreshToken);
+                var getUserIdFromToken = new GetUserIdFromTokenQuery(request.RefreshToken);
+                var getUserIdFromTokenResult = await this._mediator.Send(getUserIdFromToken, cancellationToken);
 
                 userEntity = await 
                                 this._dbRepository
                                     .Users
                                     .FirstOrDefaultAsync(
-                                        l => l.Id == userId, 
+                                        l => l.Id == getUserIdFromTokenResult.UserId, 
                                         cancellationToken
                                     );
 
                 if (userEntity == null)
                 {
-                    throw new AppException(AppErrorEnums.UnauthorizedUserNotFound, userId.ToString());
+                    throw new AppException(AppErrorEnums.UnauthorizedUserNotFound, getUserIdFromTokenResult.UserId.ToString());
                 }
             }
             else
@@ -138,49 +143,6 @@ namespace Project04.Application.Commands
                             );
 
             return result;
-        }
-
-        private UserId ReadAccessToken(string accessToken)
-        {
-            try
-            {
-                var symmetricSecurityKey = new SymmetricSecurityKey(this._appSettingsProvider.Jwt.secret.ToUTF8Bytes());
-
-                var tokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = symmetricSecurityKey,
-
-                    ValidateAudience = true,
-                    ValidAudience = this._appSettingsProvider.Jwt.audience,
-
-                    ValidateIssuer = true,
-                    ValidIssuer = this._appSettingsProvider.Jwt.issuer,
-
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero,
-                };
-
-                var claimsPrincipal = new JwtSecurityTokenHandler()
-                                            .ValidateToken(
-                                                validationParameters: tokenValidationParameters,
-                                                validatedToken: out _,
-                                                token: accessToken
-                                            );
-
-                var userId = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier);
-
-                return userId!.Value.ToBaseEntityId<UserId>();
-            }
-            catch (Exception ex)
-            {
-                throw 
-                    new AppException(
-                        codeError: AppErrorEnums.UnauthorizedInvalidAccessToken, 
-                        data: accessToken,
-                        cause: ex
-                    );
-            }
         }
 
         #endregion
