@@ -15,7 +15,7 @@
                     .ForeignKey(
                         foreignKeyName: "FK_EVENTS_BUDGETS_BudgetId",
                         primaryTableName: "BUDGETS",
-                        primaryColumnName: "MemberId"
+                        primaryColumnName: "Id"
                     )
                     .Nullable()
                 .WithColumn("Title")

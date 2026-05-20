@@ -35,6 +35,7 @@ namespace Project04.Application.MemberManagement.Queries
                             user.Firstname,
                             user.Lastname,
                             user.Nickname,
+                            member.Phone,
                             user.Role
                         };
 
@@ -51,6 +52,7 @@ namespace Project04.Application.MemberManagement.Queries
                                     Nickname = l.Nickname,
                                     Address = l.Address,
                                     UserId = l.UserId,
+                                    Phone = l.Phone,
                                     Role = l.Role
                                 }
                             )

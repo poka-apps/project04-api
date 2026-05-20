@@ -40,28 +40,23 @@
                     {
                         ownedNavigationBuilder
                             .Property(l => l.Street)
-                            .HasColumnName("Address.Street")
-                            .IsRequired(false);
+                            .HasColumnName("Address.Street");
 
                         ownedNavigationBuilder
                             .Property(l => l.Street2)
-                            .HasColumnName("Address.Street2")
-                            .IsRequired(false);
+                            .HasColumnName("Address.Street2");
 
                         ownedNavigationBuilder
                             .Property(l => l.City)
-                            .HasColumnName("Address.City")
-                            .IsRequired(false);
+                            .HasColumnName("Address.City");
 
                         ownedNavigationBuilder
                             .Property(l => l.PostalCode)
-                            .HasColumnName("Address.PostalCode")
-                            .IsRequired(false);
+                            .HasColumnName("Address.PostalCode");
 
                         ownedNavigationBuilder
                             .Property(l => l.CountryCodeISO2)
-                            .HasColumnName("Address.CountryCodeISO2")
-                            .IsRequired(false);
+                            .HasColumnName("Address.CountryCodeISO2");
                     }
                 );
 
@@ -72,13 +67,11 @@
                     {
                         ownedNavigationBuilder
                             .Property(l => l.CountryCodeIso2)
-                            .HasColumnName("Phone.CountryCodeIso2")
-                            .IsRequired(false);
+                            .HasColumnName("Phone.CountryCodeIso2");
 
                         ownedNavigationBuilder
                             .Property(l => l.Number)
-                            .HasColumnName("Phone.Number")
-                            .IsRequired(false);
+                            .HasColumnName("Phone.Number");
                     }
                 );
         }
