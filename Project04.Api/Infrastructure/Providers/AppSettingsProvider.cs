@@ -11,8 +11,10 @@
 
         public EnvironmentEnums Environment => EnvironmentEnums.FromValue(this._configuration.GetValue<string>("EnvironmentName")!);
 
-        public (int accessTokenLifetime, string audience, string secret, string issuer) Jwt =>
+        public (int refreshTokenLifetime, int accessTokenLifetime, string audience, string secret, string issuer) Jwt =>
             (
+                //refreshTokenLifetime
+                this._configuration.GetValue<int>("Jwt:RefreshTokenLifetime")!,
                 //accessTokenLifetime
                 this._configuration.GetValue<int>("Jwt:AccessTokenLifetime")!,
                 //audience

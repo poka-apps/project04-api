@@ -5,6 +5,7 @@
         EnvironmentEnums Environment { get; }
         string OriginWebApplication { get; }
         (
+            int refreshTokenLifetime,
             int accessTokenLifetime,
             string audience,
             string secret,

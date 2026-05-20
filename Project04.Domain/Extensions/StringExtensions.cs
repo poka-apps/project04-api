@@ -18,6 +18,10 @@ namespace Project04.Extensions
         public static bool HasValue(this string value) =>
             !value.IsNullOrEmpty() && !value.IsNullOrWhiteSpace();
 
+        public static TObjectId ToBaseEntityId<TObjectId>(this string value)
+            where TObjectId : BaseEntityId => 
+            value.ToObjectId<TObjectId, Guid>();
+
         public static TObjectId ToObjectId<TObjectId, TValue>(this string value)
             where TObjectId : BaseObjectId<TValue>
         {
@@ -70,10 +74,16 @@ namespace Project04.Extensions
             }
         }
 
-        public static Password ToPassword(this string value) => new(value);
+        public static UserRoleEnums ToUserRoleEnums(this string value) =>
+            UserRoleEnums.FromValue(value);
 
-        public static Email ToEmail(this string value) => new(value);
+        public static Password ToPassword(this string value) => 
+            new(value);
 
-        public static Name ToName(this string value) => new(value);
+        public static Email ToEmail(this string value) => 
+            new(value);
+
+        public static Name ToName(this string value) => 
+            new(value);
     }
 }

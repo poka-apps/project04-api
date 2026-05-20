@@ -80,14 +80,12 @@ namespace Project04.Application.Commands
         private AccessToken GenerateAccessToken(UserEntity userEntity)
         {
             var dateTimeUtcNow = DateTime.UtcNow;
+            var symmetricSecurityKey = new SymmetricSecurityKey(this._appSettingsProvider.Jwt.secret.ToUTF8Bytes());
+            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
             var accessTokenExpirationDate = dateTimeUtcNow.AddSeconds(this._appSettingsProvider.Jwt.accessTokenLifetime);
 
             var accessToken = default(string);
             {
-                var symmetricSecurityKey = new SymmetricSecurityKey(this._appSettingsProvider.Jwt.secret.ToUTF8Bytes());
-
-                var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
-
                 var accessTokenClaims = new List<Claim>
                 {
                     new(ClaimTypes.Expiration, accessTokenExpirationDate.ToString("O")),
@@ -102,25 +100,35 @@ namespace Project04.Application.Commands
                     accessTokenClaims.Add(new Claim(ClaimTypes.Email, userEntity.Email.ToString()));
                 }
 
-                var token = new JwtSecurityToken(
-                                audience: this._appSettingsProvider.Jwt.audience,
-                                issuer: this._appSettingsProvider.Jwt.issuer,
-                                signingCredentials: signingCredentials,
-                                expires: accessTokenExpirationDate,
-                                claims: accessTokenClaims
-                            );
+                var jwtSecurityToken =  new JwtSecurityToken(
+                                            audience: this._appSettingsProvider.Jwt.audience,
+                                            issuer: this._appSettingsProvider.Jwt.issuer,
+                                            signingCredentials: signingCredentials,
+                                            expires: accessTokenExpirationDate,
+                                            claims: accessTokenClaims
+                                        );
 
-                accessToken = new JwtSecurityTokenHandler().WriteToken(token);
+                accessToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             }
 
             var refreshToken = default(string);
             {
-                using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
-                var randomBytes = new byte[64];
+                var refreshTokenExpirationDate = dateTimeUtcNow.AddSeconds(this._appSettingsProvider.Jwt.refreshTokenLifetime);
+                var refreshTokenClaims = new List<Claim>
+                {
+                    new(ClaimTypes.Expiration, refreshTokenExpirationDate.ToString("O")),
+                    new(ClaimTypes.NameIdentifier, userEntity.Id.ToString())
+                };
 
-                rngCryptoServiceProvider.GetBytes(randomBytes);
+                var jwtSecurityToken = new JwtSecurityToken(
+                                            audience: this._appSettingsProvider.Jwt.audience,
+                                            issuer: this._appSettingsProvider.Jwt.issuer,
+                                            signingCredentials: signingCredentials,
+                                            expires: refreshTokenExpirationDate,
+                                            claims: refreshTokenClaims
+                                        );
 
-                refreshToken = Convert.ToBase64String(randomBytes);
+                refreshToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             }
 
             var result =    new AccessToken(
@@ -162,7 +170,7 @@ namespace Project04.Application.Commands
 
                 var userId = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier);
 
-                return new UserId(Guid.Parse(userId!.Value));
+                return userId!.Value.ToBaseEntityId<UserId>();
             }
             catch (Exception ex)
             {

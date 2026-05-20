@@ -10,20 +10,12 @@
         {
         }
 
-        public GenerateUserAccessTokenCommand(string refreshToken)
+        public GenerateUserAccessTokenCommand(Email? email = null, Password? password = null, string? refreshToken = null)
+            : this()
         {
-            refreshToken.ValidateHasValue();
-
             RefreshToken = refreshToken;
-        }
-
-        public GenerateUserAccessTokenCommand(Email email, Password password)
-        {
-            password.ValidateNotNull();
-            email.ValidateNotNull();
-
-            Email = email;
             Password = password;
+            Email = email;
         }
     }
 }

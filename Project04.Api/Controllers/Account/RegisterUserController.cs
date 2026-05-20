@@ -21,11 +21,15 @@ namespace Project04.Api.Controllers.Account
         public async Task<IActionResult> Async([FromBody] RegisterUserDTORequest bodyData, CancellationToken cancellationToken)
         {
             var command =   new RegisterUserCommand(
+                                password: bodyData.Password?.ToPassword(),
+                                role: bodyData.Role?.ToUserRoleEnums(),
                                 firstName: bodyData.FirstName.ToName(),
-                                lastName: bodyData.LastName?.ToName()
+                                lastName: bodyData.LastName?.ToName(),
+                                email: bodyData.Email?.ToEmail()
                             );
 
-            var commandResult = await _mediator.Send(command, cancellationToken);
+            var commandResult = await this._mediator.Send(command, cancellationToken);
+
             var result = commandResult.UserId.ToString();
 
             return Ok(result);
@@ -36,5 +40,8 @@ namespace Project04.Api.Controllers.Account
     {
         public string FirstName { get; set; } = null!;
         public string? LastName { get; set; }
+        public string? Password { get; set; }
+        public string? Email { get; set; }
+        public string? Role { get; set; }
     }
 }

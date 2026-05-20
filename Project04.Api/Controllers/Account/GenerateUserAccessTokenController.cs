@@ -27,10 +27,11 @@ namespace Project04.Api.Controllers.Account
         public async Task<IActionResult> Async([FromBody] GenerateUserAccessTokenDTORequest bodyData, CancellationToken cancellationToken)
         {
             var query = new GenerateUserAccessTokenCommand(
-                            password: bodyData.Password.ToPassword(),
-                            email: bodyData.Email.ToEmail()
+                            password: bodyData.Password?.ToPassword(),
+                            refreshToken: bodyData.RefreshToken,
+                            email: bodyData.Email?.ToEmail()
                         );
-            var queryResult = await _mediator.Send(query, cancellationToken);
+            var queryResult = await this._mediator.Send(query, cancellationToken);
 
             var result = new TokenDTO
             {
@@ -45,7 +46,8 @@ namespace Project04.Api.Controllers.Account
 
     public class GenerateUserAccessTokenDTORequest
     {
-        public string Password { get; set; } = null!;
-        public string Email { get; set; } = null!;
+        public string? RefreshToken { get; set; }
+        public string? Password { get; set; }
+        public string? Email { get; set; }
     }
 }
