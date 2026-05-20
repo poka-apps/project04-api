@@ -23,8 +23,9 @@ namespace Project04.Api.Controllers.Account
             var command =   new RegisterUserCommand(
                                 password: bodyData.Password?.ToPassword(),
                                 role: bodyData.Role?.ToUserRoleEnums(),
-                                firstName: bodyData.FirstName.ToName(),
-                                lastName: bodyData.LastName?.ToName(),
+                                firstname: bodyData.Firstname.ToName(),
+                                lastname: bodyData.Lastname?.ToName(),
+                                nickname: bodyData.Nickname?.ToName(),
                                 email: bodyData.Email?.ToEmail()
                             );
 
@@ -38,8 +39,9 @@ namespace Project04.Api.Controllers.Account
 
     public class RegisterUserDTORequest
     {
-        public string FirstName { get; set; } = null!;
-        public string? LastName { get; set; }
+        public string Firstname { get; set; } = null!;
+        public string? Lastname { get; set; }
+        public string? Nickname { get; set; }
         public string? Password { get; set; }
         public string? Email { get; set; }
         public string? Role { get; set; }

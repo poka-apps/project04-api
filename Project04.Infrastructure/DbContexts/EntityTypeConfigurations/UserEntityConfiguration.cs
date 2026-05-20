@@ -55,6 +55,22 @@
                 );
 
             builder
+                .Property(l => l.Nickname)
+                .HasColumnName("Nickname")
+                .HasConversion(
+                    objValue => (
+                        objValue == null
+                            ? null
+                            : objValue.Value
+                    ),
+                    dbValue => (
+                        dbValue == null
+                            ? null
+                            : new Name(dbValue)
+                    )
+                );
+
+            builder
                 .Property(l => l.Email)
                 .HasColumnName("Email")
                 .HasConversion(

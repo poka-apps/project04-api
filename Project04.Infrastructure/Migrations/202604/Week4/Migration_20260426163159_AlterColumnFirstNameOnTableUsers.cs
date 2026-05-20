@@ -5,14 +5,14 @@
     {
         public override void Up() =>
             Alter
-                .Column("FirstName")
+                .Column("Firstname")
                     .OnTable("USERS")
                         .AsString(100)
                         .NotNullable();
 
         public override void Down() =>
             Alter
-                .Column("FirstName")
+                .Column("Firstname")
                     .OnTable("USERS")
                         .AsString(100)
                         .Nullable();

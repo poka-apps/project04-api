@@ -5,8 +5,9 @@
         public UserRoleEnums Role { get; init; } = null!;
         public MemberId MemberId { get; init; } = null!;
         public UserId UserId { get; init; } = null!;
-        public Name FirstName { get; init; } = null!;
-        public Name? LastName { get; init; }
+        public Name Firstname { get; init; } = null!;
+        public Name? Lastname { get; init; }
+        public Name? Nickname { get; init; }
         public Address? Address { get; set; }
         public DateTime CreatedOn { get; init; }
     }

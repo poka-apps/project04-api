@@ -12,6 +12,7 @@ namespace Project04.Domain.Entities
         public MemberId? MemberId { get; private set; }
         public Email? Email { get; private set; }
         public Name? Lastname { get; private set; }
+        public Name? Nickname { get; private set; }
         public PasswordEncrypted? Password { get; private set; }
 
         public UserEntity()
@@ -20,15 +21,21 @@ namespace Project04.Domain.Entities
             this.Role = UserRoleEnums.User;
         }
 
-        public UserEntity EditProfile(Name firstName, Name? lastName = null)
+        public UserEntity EditProfile(
+            Name firstName, 
+            Name? nickname = null,
+            Name? lastname = null
+        )
         {
             firstName.ValidateNotNull();
 
             firstName.Humanize();
-            lastName?.Humanize();
+            lastname?.Humanize();
+            nickname?.Humanize();
 
             this.Firstname = firstName;
-            this.Lastname = lastName;
+            this.Lastname = lastname;
+            this.Nickname = nickname;
 
             return this;
         }

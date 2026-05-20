@@ -2,10 +2,11 @@
 {
     public class RegisterUserCommand : ICommand<RegisterUserCommandResult>
     {
-        public Name FirstName { get; private set; } = null!;
+        public Name Firstname { get; private set; } = null!;
         public Password? Password { get; private set; }
         public Email? Email { get; private set; }
-        public Name? LastName { get; private set; }
+        public Name? Lastname { get; private set; }
+        public Name? Nickname { get; private set; }
         public UserRoleEnums? Role { get; private set; }
         public bool Root { get; private set; }
 
@@ -13,8 +14,9 @@
         { }
 
         public RegisterUserCommand(
-            Name firstName, 
-            Name? lastName = null, 
+            Name firstname, 
+            Name? lastname = null, 
+            Name? nickname = null,
             Email? email = null, 
             Password? password = null, 
             UserRoleEnums? role = null, 
@@ -22,10 +24,11 @@
         )
             : this()
         {
-            firstName.ValidateNotNull();
+            firstname.ValidateNotNull();
 
-            FirstName = firstName;
-            LastName = lastName;
+            Firstname = firstname;
+            Lastname = lastname;
+            Nickname = nickname;
             Password = password;
             Email = email;
             Role = role;

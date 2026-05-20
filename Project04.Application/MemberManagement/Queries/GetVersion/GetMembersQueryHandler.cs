@@ -34,6 +34,7 @@ namespace Project04.Application.MemberManagement.Queries
                             member.Address,
                             user.Firstname,
                             user.Lastname,
+                            user.Nickname,
                             user.Role
                         };
 
@@ -44,9 +45,10 @@ namespace Project04.Application.MemberManagement.Queries
                                 l => new GetMembersQueryResult
                                 {
                                     CreatedOn = l.CreatedOn,
-                                    FirstName = l.Firstname,
+                                    Firstname = l.Firstname,
                                     MemberId = l.MemberId,
-                                    LastName = l.Lastname,
+                                    Lastname = l.Lastname,
+                                    Nickname = l.Nickname,
                                     Address = l.Address,
                                     UserId = l.UserId,
                                     Role = l.Role

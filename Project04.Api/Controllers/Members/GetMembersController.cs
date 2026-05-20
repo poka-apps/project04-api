@@ -29,8 +29,9 @@ namespace Project04.Api.Controllers.Members
                             .Select(
                                 l => new GetMembersDTOResponse
                                 {
-                                    FirstName = l.FirstName.Value,
-                                    LastName = l.LastName?.Value,
+                                    Firstname = l.Firstname.Value,
+                                    Lastname = l.Lastname?.Value,
+                                    Nickname = l.Nickname?.Value,
                                     UserId = l.UserId.ToString(),
                                     Id = l.MemberId.ToString(),
                                     CreatedOn = l.CreatedOn,
@@ -46,11 +47,12 @@ namespace Project04.Api.Controllers.Members
 
     public class GetMembersDTOResponse
     {
-        public string FirstName { get; set; } = null!;
+        public string Firstname { get; set; } = null!;
         public string UserId { get; set; } = null!;
         public string Role { get; set; } = null!;
         public string Id { get; set; } = null!;
-        public string? LastName { get; set; }
+        public string? Lastname { get; set; }
+        public string? Nickname { get; set; }
         public Address? Address { get; set; }
         public DateTime CreatedOn { get; set; }
     }
