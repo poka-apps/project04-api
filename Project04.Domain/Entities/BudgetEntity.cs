@@ -17,6 +17,13 @@ namespace Project04.Domain.Entities
             Balance = balance;
         }
 
+        public BudgetEntity AddTransaction(float amount)
+        {
+            this.Balance += amount;
+
+            return this;
+        }
+
         public BudgetEntity ChangePeriod(Period value)
         {
             value.ValidateNotNull();

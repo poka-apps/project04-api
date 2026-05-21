@@ -16,6 +16,8 @@ namespace Project04.Application.Accounting.Commands
 
         public async Task<CreateTransactionCommandResult> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
+            #region Get budget
+
             var budgetEntity =  await 
                                     this._dbRepository
                                         .Budgets
@@ -27,7 +29,11 @@ namespace Project04.Application.Accounting.Commands
             if (budgetEntity == null)
             {
                 throw new AppException(AppErrorEnums.NotFoundBudget, request.BudgetId.ToString());
-            } 
+            }
+
+            #endregion
+
+            #region Create transaction
 
             var transactionEntity =  new TransactionEntity()
                                         .CreatedBy<TransactionEntity>(this._currentUserProvider.UserId)
@@ -52,6 +58,14 @@ namespace Project04.Application.Accounting.Commands
                         cancellationToken: cancellationToken,
                         entity: transactionEntity
                     );
+
+            #endregion
+
+            #region Update budget
+
+            budgetEntity.AddTransaction(transactionEntity.Amount);
+
+            #endregion
 
             await this._dbRepository.SaveChangesAsync(cancellationToken);
 
