@@ -1,15 +1,18 @@
-﻿using Project04.Application.Repositories;
+﻿using Project04.Application.Providers;
+using Project04.Application.Repositories;
 using Project04.Application.UserManager.Commands;
 
 namespace Project04.Application.MemberManagement.Commands
 {
     public class CreateMemberCommandHandler : IRequestHandler<CreateMemberCommand, CreateMemberCommandResult>
     {
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly IDbRepository _dbRepository;
         private readonly IMediator _mediator;
 
-        public CreateMemberCommandHandler(IDbRepository dbRepository, IMediator mediator)
+        public CreateMemberCommandHandler(IDbRepository dbRepository, ICurrentUserProvider currentUserProvider, IMediator mediator)
         {
+            _currentUserProvider = currentUserProvider;
             _dbRepository = dbRepository;
             _mediator = mediator;
         }
@@ -33,7 +36,8 @@ namespace Project04.Application.MemberManagement.Commands
 
             #region Create member
 
-            var memberEntity = new MemberEntity(userId: registerUserCommandResult.UserId);
+            var memberEntity = new MemberEntity(userId: registerUserCommandResult.UserId)
+                                    .CreatedBy<MemberEntity>(this._currentUserProvider.UserId);
 
             if (request.Address != null)
             {

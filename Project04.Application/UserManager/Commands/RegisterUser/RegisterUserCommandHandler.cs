@@ -1,13 +1,16 @@
-﻿using Project04.Application.Repositories;
+﻿using Project04.Application.Providers;
+using Project04.Application.Repositories;
 
 namespace Project04.Application.UserManager.Commands
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserCommandResult>
     {
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly IDbRepository _dbRepository;
 
-        public RegisterUserCommandHandler(IDbRepository dbRepository)
+        public RegisterUserCommandHandler(IDbRepository dbRepository, ICurrentUserProvider currentUserProvider)
         {
+            _currentUserProvider = currentUserProvider;
             _dbRepository = dbRepository;
         }
 
@@ -49,6 +52,7 @@ namespace Project04.Application.UserManager.Commands
             #endregion
 
             var userEntity = new UserEntity()
+                                .CreatedBy<UserEntity>(this._currentUserProvider.UserId)
                                 .EditProfile(
                                     firstname: request.Firstname, 
                                     lastname: request.Lastname,

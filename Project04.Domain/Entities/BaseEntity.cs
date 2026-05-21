@@ -17,5 +17,13 @@ namespace Project04.Domain.Entities
         {
             this.CreatedOn = DateTime.UtcNow;
         }
+
+        public TEntity CreatedBy<TEntity>(UserId? value)
+            where TEntity : BaseEntity<TObjectId>
+        {
+            this.CreatedByUserId = value;
+
+            return (TEntity)this;
+        }
     }
 }
