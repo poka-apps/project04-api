@@ -1,8 +1,10 @@
-﻿using Project04.Infrastructure.DbContexts;
-using Project04.Infrastructure.Migrations;
+﻿using CountryProvider = Project04.Infrastructure.Providers.CountryProvider;
+using ICountryProvider = Project04.Application.Providers.ICountryProvider;
 using Project04.Infrastructure.PipelineBehaviors;
-using Project04.Infrastructure.Providers;
 using Project04.Infrastructure.Repositories;
+using Project04.Infrastructure.DbContexts;
+using Project04.Infrastructure.Migrations;
+using Project04.Infrastructure.Providers;
 using Project04.Infrastructure.Services;
 
 namespace Project04.Extensions
@@ -67,13 +69,7 @@ namespace Project04.Extensions
             // Providers
             {
                 serviceCollection
-                    .AddSingleton<ICountryProvider>(new CountryProvider());
-            }
-
-            // Others
-            {
-                serviceCollection
-                    .AddSingleton<PhoneNumberUtil>(PhoneNumberUtil.GetInstance());
+                    .AddSingleton<ICountryProvider, CountryProvider>();
             }
 
             // MediatR

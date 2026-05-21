@@ -9,12 +9,12 @@ namespace Project04.Api.Controllers.Members
     [ApiController]
     public class GetMembersController : ControllerBase
     {
-        private readonly PhoneNumberUtil _phoneNumberUtil;
+        private readonly ICountryProvider _countryProvider;
         private readonly IMediator _mediator;
 
-        public GetMembersController(PhoneNumberUtil phoneNumberUtil, IMediator mediator)
+        public GetMembersController(ICountryProvider countryProvider, IMediator mediator)
         {
-            _phoneNumberUtil = phoneNumberUtil;
+            _countryProvider = countryProvider;
             _mediator = mediator;
         }
 
@@ -35,14 +35,14 @@ namespace Project04.Api.Controllers.Members
                                                     : null,
                                     Phone = l.Phone != null
                                                     ?   new PhoneDTO(
-                                                            phoneNumberUtil: this._phoneNumberUtil,
+                                                            countryProvider: this._countryProvider,
                                                             phone: l.Phone
                                                         )
                                                     : null,
-                                    Firstname = l.Firstname.Value,
-                                    Lastname = l.Lastname?.Value,
+                                    Firstname = l.Firstname?.Value,
                                     Nickname = l.Nickname?.Value,
                                     UserId = l.UserId.ToString(),
+                                    Lastname = l.Lastname.Value,
                                     Id = l.MemberId.ToString(),
                                     CreatedOn = l.CreatedOn,
                                     Role = l.Role.Name

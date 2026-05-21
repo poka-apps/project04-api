@@ -1,4 +1,6 @@
-﻿namespace Project04.Application.Queries
+﻿using Project04.Application.Providers;
+
+namespace Project04.Application.Queries
 {
     public class GetNomenclaturesQueryHandler : IRequestHandler<GetNomenclaturesQuery, IEnumerable<GetNomenclaturesQueryResult>>
     {
@@ -17,12 +19,12 @@
             {
                 result =    this._countryProvider
                                 .GetCountries()
-                                .OrderBy(l => l.CommonName)
+                                .OrderBy(l => l.name)
                                 .Select(
                                     l => new GetNomenclaturesQueryResult
                                     {
-                                        Id = l.Alpha2Code.ToString(),
-                                        Title = l.CommonName
+                                        Id = l.codeIso2,
+                                        Title = l.name
                                     }
                                 )
                                 .ToList();

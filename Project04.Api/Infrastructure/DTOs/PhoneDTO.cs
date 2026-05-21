@@ -10,7 +10,7 @@
         {
         }
 
-        public PhoneDTO(Phone phone, PhoneNumberUtil? phoneNumberUtil = null)
+        public PhoneDTO(Phone phone, ICountryProvider? countryProvider = null)
             : this()
         {
             phone.ValidateNotNull();
@@ -18,9 +18,9 @@
             CountryCodeIso2 = phone.CountryCodeIso2;
             Number = phone.Number;
 
-            if (phoneNumberUtil != null)
+            if (countryProvider != null)
             {
-                FullNumber = phone.ToString(phoneNumberUtil);
+                FullNumber = phone.ToString(countryProvider);
             }
         }
 

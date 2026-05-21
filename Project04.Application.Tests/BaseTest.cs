@@ -18,10 +18,10 @@ namespace Project04.Application.Tests
         public BaseTest()
         {
             ServiceProvider = new ServiceCollection()
-                                    .AddSingleton<IConfiguration>(this.Configuration)
+                                    .AddSingleton(this.Configuration)
                                     .AddInfrastructure()
-                                    .AddScoped<ICurrentCultureProvider>(GetMockedICurrentCultureProvider)
-                                    .AddScoped<ICurrentUserProvider>(GetMockedICurrentUserProvider)
+                                    .AddScoped(GetMockedICurrentCultureProvider)
+                                    .AddScoped(GetMockedICurrentUserProvider)
                                     .AddSingleton<IAppSettingsProvider, AppSettingsProvider>()
                                     .BuildServiceProvider();
 

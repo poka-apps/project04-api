@@ -17,17 +17,5 @@
             CountryCodeIso2 = countryCodeIso2.Humanize(LetterCasing.AllCaps);
             Number = number;
         }
-
-        public int GetCallingCode(PhoneNumberUtil phoneNumberUtil)
-        {
-            phoneNumberUtil.ValidateNotNull();
-
-            var result = phoneNumberUtil.GetCountryCodeForRegion(this.CountryCodeIso2.Humanize(LetterCasing.AllCaps));
-
-            return result;
-        }
-
-        public string ToString(PhoneNumberUtil phoneNumberUtil) =>
-            $"+{this.GetCallingCode(phoneNumberUtil)}{Number}";
     }
 }
