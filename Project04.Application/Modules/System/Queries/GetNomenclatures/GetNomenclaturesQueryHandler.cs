@@ -17,10 +17,11 @@
             {
                 result =    this._countryProvider
                                 .GetCountries()
+                                .OrderBy(l => l.CommonName)
                                 .Select(
                                     l => new GetNomenclaturesQueryResult
                                     {
-                                        Id = l.Alpha2Code,
+                                        Id = l.Alpha2Code.ToString(),
                                         Title = l.CommonName
                                     }
                                 )
