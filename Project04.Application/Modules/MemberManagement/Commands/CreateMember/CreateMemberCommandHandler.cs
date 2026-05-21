@@ -83,6 +83,7 @@ namespace Project04.Application.MemberManagement.Commands
 
             var result = new CreateMemberCommandResult
             {
+                UserId = registerUserCommandResult.UserId,
                 MemberId = memberEntity.Id
             };
 

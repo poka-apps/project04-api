@@ -49,13 +49,6 @@ namespace Project04.Domain.Entities
             return this;
         }
 
-        public UserEntity DetachFromMember()
-        {
-            this.MemberId = null;
-
-            return this;
-        }
-
         public UserEntity ChangePassword(Password password)
         {
             password.ValidateNotNull();
@@ -79,6 +72,13 @@ namespace Project04.Domain.Entities
             email.ValidateNotNull();
 
             this.Email = email;
+
+            return this;
+        }
+
+        public UserEntity DetachFromMember()
+        {
+            this.MemberId = null;
 
             return this;
         }

@@ -1,6 +1,4 @@
-﻿using Humanizer;
-
-namespace Project04.Infrastructure.Migrations
+﻿namespace Project04.Infrastructure.Migrations
 {
     [Migration(20260520203159, description: nameof(Migration_20260520203159_ImportMembersFromXlsxFile))]
     public class Migration_20260520203159_ImportMembersFromXlsxFile : BaseMigration
@@ -28,8 +26,8 @@ namespace Project04.Infrastructure.Migrations
                 var firstnameValue = row.Cell(1).GetValue<string>();
                 var lastnameValue = row.Cell(2).GetValue<string>();
                 var nicknameValue = row.Cell(3).GetValue<string>();
-                var city = row.Cell(4).GetValue<string>();
                 var telephone = row.Cell(5).GetValue<string>();
+                var city = row.Cell(4).GetValue<string>();
 
                 if (lastnameValue?.Trim().ToLower() == "total")
                 {
@@ -96,23 +94,39 @@ namespace Project04.Infrastructure.Migrations
                     }
                 }                
 
-                var command =   new CreateMemberCommand(
-                                    firstname: firstname,
-                                    lastname: lastname!,
-                                    nickname: nickname,
-                                    address: address,
-                                    phone: phone
-                                );
-                commands.Add(command);
+                commands.Add(
+                    new CreateMemberCommand(
+                        firstname: firstname,
+                        lastname: lastname!,
+                        nickname: nickname,
+                        address: address,
+                        phone: phone
+                    )
+                );
             }
 
             dbRepository.BeginTransaction();
 
             foreach (var command in commands)
             {
-                mediator
-                    .Send(command)
-                    .Wait();
+                var commandResult = mediator
+                                        .Send(command)
+                                        .Result;
+
+                if (command.Lastname.Value.Equals("POKA", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    var userEntity = dbRepository
+                                        .Users
+                                        .First(l => l.Id == commandResult.UserId);
+
+                    userEntity
+                        .ChangeEmail(new Email("yorich.poka@gmail.com"))
+                        .ChangePassword(new Password("P@ssw0rd"))
+                        .ChangeRole(UserRoleEnums.Administrator)
+                        .AsRoot();
+
+                    dbRepository.SaveChanges();
+                }
             }
 
             dbRepository.CommitTransaction();
