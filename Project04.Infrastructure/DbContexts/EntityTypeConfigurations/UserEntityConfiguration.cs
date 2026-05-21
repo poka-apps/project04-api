@@ -31,16 +31,16 @@
                 );
 
             builder
-                .Property(l => l.Firstname)
-                .HasColumnName("FirstName")
+                .Property(l => l.Lastname)
+                .HasColumnName("Lastname")
                 .HasConversion(
                     objValue => objValue.Value,
                     dbValue => new Name(dbValue)
                 );
 
             builder
-                .Property(l => l.Lastname)
-                .HasColumnName("LastName")
+                .Property(l => l.Firstname)
+                .HasColumnName("Firstname")
                 .HasConversion(
                     objValue => (
                         objValue == null

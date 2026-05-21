@@ -50,7 +50,7 @@ namespace Project04.Application.UserManager.Commands
 
             var userEntity = new UserEntity()
                                 .EditProfile(
-                                    firstName: request.Firstname, 
+                                    firstname: request.Firstname, 
                                     lastname: request.Lastname,
                                     nickname: request.Nickname
                                 );

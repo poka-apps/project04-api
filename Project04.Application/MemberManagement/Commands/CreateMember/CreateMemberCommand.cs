@@ -2,9 +2,9 @@
 {
     public class CreateMemberCommand : ICommand<CreateMemberCommandResult>
     {
-        public Name Firstname { get; private set; } = null!;
+        public Name Lastname { get; private set; } = null!;
+        public Name? Firstname { get; private set; }
         public Address? Address { get; private set; }
-        public Name? Lastname { get; private set; }
         public Name? Nickname { get; private set; }
         public Email? Email { get; private set; }
         public Phone? Phone { get; private set; }
@@ -13,8 +13,8 @@
         { }
 
         public CreateMemberCommand(
-            Name firstname, 
-            Name? lastname = null,
+            Name lastname,
+            Name? firstname = null, 
             Name? nickname = null,
             Address? address = null,
             Phone? phone = null,
@@ -22,7 +22,7 @@
         )
             : this()
         {
-            firstname.ValidateNotNull();
+            lastname.ValidateNotNull();
 
             Firstname = firstname;
             Lastname = lastname;

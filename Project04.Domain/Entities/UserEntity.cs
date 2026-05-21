@@ -6,12 +6,12 @@ namespace Project04.Domain.Entities
     public class UserEntity : BaseEntity<UserId>
     {
         public UserRoleEnums Role { get; private set; } = null!;
-        public Name Firstname { get; private set; } = null!;
+        public Name Lastname { get; private set; } = null!;
         public bool Root { get; private set; }
 
         public MemberId? MemberId { get; private set; }
+        public Name? Firstname { get; private set; }
         public Email? Email { get; private set; }
-        public Name? Lastname { get; private set; }
         public Name? Nickname { get; private set; }
         public PasswordEncrypted? Password { get; private set; }
 
@@ -22,18 +22,18 @@ namespace Project04.Domain.Entities
         }
 
         public UserEntity EditProfile(
-            Name firstName, 
-            Name? nickname = null,
-            Name? lastname = null
+            Name lastname, 
+            Name? firstname = null,
+            Name? nickname = null
         )
         {
-            firstName.ValidateNotNull();
+            lastname.ValidateNotNull();
 
-            firstName.Humanize();
-            lastname?.Humanize();
+            lastname.Humanize();
+            firstname?.Humanize();
             nickname?.Humanize();
 
-            this.Firstname = firstName;
+            this.Firstname = firstname;
             this.Lastname = lastname;
             this.Nickname = nickname;
 
