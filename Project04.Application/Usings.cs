@@ -10,3 +10,4 @@ global using Project04.Extensions;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Globalization;
+global using Nager.Country;
