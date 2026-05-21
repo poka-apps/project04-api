@@ -33,6 +33,10 @@
                 .WithColumn("PasswordSalt")
                     .AsBinary(int.MaxValue)
                     .Nullable()
+                .WithColumn("Root")
+                    .AsBoolean()
+                    .NotNullable()
+                    .WithDefaultValue(false)
                 .WithColumn("CreatedByUserId")
                     .AsGuid()
                     .ForeignKey(

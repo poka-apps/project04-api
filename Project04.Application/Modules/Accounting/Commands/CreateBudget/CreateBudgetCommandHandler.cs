@@ -18,11 +18,11 @@ namespace Project04.Application.Accounting.Commands
         {
             var budgetEntity =  new BudgetEntity(request.Balance)
                                     .CreatedBy<BudgetEntity>(this._currentUserProvider.UserId)
-                                    .ChangeTitle(request.Title);
+                                    .ChangeTitle<BudgetEntity>(request.Title);
 
             if (request.Description != null)
             {
-                budgetEntity.ChangeDescription(request.Description);
+                budgetEntity.ChangeDescription<BudgetEntity>(request.Description);
             }
 
             if (request.Period != null)
