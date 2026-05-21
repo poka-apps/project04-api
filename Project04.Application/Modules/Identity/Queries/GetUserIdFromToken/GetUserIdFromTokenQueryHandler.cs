@@ -15,26 +15,9 @@ namespace Project04.Application.Queries
         {
             try
             {
-                var symmetricSecurityKey = new SymmetricSecurityKey(this._appSettingsProvider.Jwt.secret.ToUTF8Bytes());
-
-                var tokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = symmetricSecurityKey,
-
-                    ValidateAudience = true,
-                    ValidAudience = this._appSettingsProvider.Jwt.audience,
-
-                    ValidateIssuer = true,
-                    ValidIssuer = this._appSettingsProvider.Jwt.issuer,
-
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero,
-                };
-
                 var claimsPrincipal = new JwtSecurityTokenHandler()
                                             .ValidateToken(
-                                                validationParameters: tokenValidationParameters,
+                                                validationParameters: this._appSettingsProvider.GetTokenValidationParameters(),
                                                 validatedToken: out _,
                                                 token: request.Token
                                             );

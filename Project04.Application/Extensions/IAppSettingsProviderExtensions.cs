@@ -5,7 +5,7 @@ namespace Project04.Extensions
     public static class IAppSettingsProviderExtensions
     {
         public static TokenValidationParameters GetTokenValidationParameters(this IAppSettingsProvider appSettingsProvider)
-            => new TokenValidationParameters
+            => new()
             {
                 IssuerSigningKey = new SymmetricSecurityKey(appSettingsProvider.Jwt.secret.ToUTF8Bytes()),
                 ValidAudience = appSettingsProvider.Jwt.audience,
