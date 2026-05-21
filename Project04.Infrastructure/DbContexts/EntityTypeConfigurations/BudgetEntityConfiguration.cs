@@ -19,6 +19,11 @@
                 .HasDefaultValueSql("gen_random_uuid()");
 
             builder
+                .Property(l => l.Balance)
+                .HasColumnName("Balance")
+                .IsRequired();
+
+            builder
                 .Property(l => l.Title)
                 .HasColumnName("Title")
                 .HasMaxLength(100)
