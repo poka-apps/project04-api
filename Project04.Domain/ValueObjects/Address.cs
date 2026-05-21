@@ -9,14 +9,19 @@
         public string? PostalCode { get; private set; }
         public string CountryCodeISO2 { get; private set; }
 
+        public Address()
+        {
+        }
+
         public Address(
-            string? number,
-            string? street,
-            string? street2,
-            string? city,
-            string? postalCode,
-            string countryCodeISO2
+            string countryCodeISO2,
+            string? number = null,
+            string? street = null,
+            string? street2 = null,
+            string? city = null,
+            string? postalCode = null
         )
+            : this()
         {
             countryCodeISO2.ValidateNotEmpty();
 
