@@ -10,6 +10,7 @@ namespace Project04.Domain.Entities
         where TObjectId : BaseEntityId
     {
         public TObjectId Id { get; protected set; } = default!;
+        public UserId? CreatedByUserId { get; protected set; }        
         public DateTime CreatedOn { get; protected set; }
 
         protected BaseEntity()

@@ -28,6 +28,18 @@
                 .IsRequired();
 
             builder
+                .Property(l => l.CreatedByUserId)
+                .HasColumnName("CreatedByUserId")
+                .HasConversion<Guid?>(
+                    objValue => objValue == null
+                                    ? null
+                                    : objValue.Value,
+                    dbValue => dbValue == null
+                                    ? null
+                                    : new UserId(dbValue.Value)
+                );
+
+            builder
                 .Property(l => l.CreatedOn)
                 .HasColumnName("CreatedOn")
                 .HasDefaultValueSql("NOW()")
