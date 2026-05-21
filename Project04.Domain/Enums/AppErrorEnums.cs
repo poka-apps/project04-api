@@ -56,13 +56,10 @@
         #region 404
 
         NotFound = 4040000,
-        EntityNotFound = 40400002,
-        UserNotFound = 4040003,
-        ChannelNotFound = 4040004,
-        AccessTokenNotFound = 4040005,
-        PostNotFound = 4040006,
-        ResourceNotFound = 4040007,
-        TagNotFound = 4040008,
+        NotFoundEntity = 40400001,
+        NotFoundUser = 4040002,
+        NotFoundAccessToken = 4040003,
+        NotFoundBudget = 4040004,
 
         #endregion
 

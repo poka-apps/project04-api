@@ -11,5 +11,25 @@ namespace Project04.Domain.Entities
     {
         public string Title { get; protected set; } = null!;
         public string? Description { get; protected set; }
+
+        public TEntity ChangeDescription<TEntity>(string value)
+            where TEntity : BaseDescribeEntity<TObjectId>
+        {
+            value.ValidateNotEmpty();
+
+            this.Description = value;
+
+            return (TEntity)this;
+        }
+
+        public TEntity ChangeTitle<TEntity>(string value)
+            where TEntity : BaseDescribeEntity<TObjectId>
+        {
+            value.ValidateNotEmpty();
+
+            this.Title = value;
+
+            return (TEntity)this;
+        }
     }
 }
