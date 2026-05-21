@@ -28,6 +28,14 @@
                 .WithColumn("On")
                     .AsDateTime()
                     .NotNullable()
+                .WithColumn("CreatedByUserId")
+                    .AsGuid()
+                    .ForeignKey(
+                        foreignKeyName: "FK_EVENTS_USERS_CreatedByUserId",
+                        primaryTableName: "USERS",
+                        primaryColumnName: "Id"
+                    )
+                    .Nullable()
                 .WithColumn("CreatedOn")
                     .AsDateTime()
                     .NotNullable()

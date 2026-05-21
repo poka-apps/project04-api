@@ -27,6 +27,14 @@
                 .WithColumn("Description")
                     .AsString(5000)
                     .Nullable()
+                .WithColumn("CreatedByUserId")
+                    .AsGuid()
+                    .ForeignKey(
+                        foreignKeyName: "FK_TRANSACTIONS_USERS_CreatedByUserId",
+                        primaryTableName: "USERS",
+                        primaryColumnName: "Id"
+                    )
+                    .Nullable()
                 .WithColumn("CreatedOn")
                     .AsDateTime()
                     .NotNullable()

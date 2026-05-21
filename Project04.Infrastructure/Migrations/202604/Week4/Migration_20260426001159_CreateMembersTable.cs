@@ -42,6 +42,14 @@
                 .WithColumn("Phone.Number")
                     .AsInt32()
                     .Nullable()
+                .WithColumn("CreatedByUserId")
+                    .AsGuid()
+                    .ForeignKey(
+                        foreignKeyName: "FK_MEMBERS_USERS_CreatedByUserId",
+                        primaryTableName: "USERS",
+                        primaryColumnName: "Id"
+                    )
+                    .Nullable()
                 .WithColumn("CreatedOn")
                     .AsDateTime()
                     .NotNullable()

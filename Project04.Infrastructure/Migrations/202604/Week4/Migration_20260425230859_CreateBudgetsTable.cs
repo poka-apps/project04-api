@@ -27,6 +27,14 @@
                 .WithColumn("To")
                     .AsDateTime()
                     .Nullable()
+                .WithColumn("CreatedByUserId")
+                    .AsGuid()
+                    .ForeignKey(
+                        foreignKeyName: "FK_BUDGETS_USERS_CreatedByUserId",
+                        primaryTableName: "USERS",
+                        primaryColumnName: "Id"
+                    )
+                    .Nullable()
                 .WithColumn("CreatedOn")
                     .AsDateTime()
                     .NotNullable()

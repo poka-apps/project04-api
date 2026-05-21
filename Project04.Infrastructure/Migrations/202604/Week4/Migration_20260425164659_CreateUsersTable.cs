@@ -33,6 +33,14 @@
                 .WithColumn("PasswordSalt")
                     .AsBinary(int.MaxValue)
                     .Nullable()
+                .WithColumn("CreatedByUserId")
+                    .AsGuid()
+                    .ForeignKey(
+                        foreignKeyName: "FK_USERS_USERS_CreatedByUserId",
+                        primaryTableName: "USERS",
+                        primaryColumnName: "Id"
+                    )
+                    .Nullable()
                 .WithColumn("CreatedOn")
                     .AsDateTime()
                     .NotNullable()
