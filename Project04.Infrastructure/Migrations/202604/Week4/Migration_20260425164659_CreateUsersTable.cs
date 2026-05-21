@@ -6,7 +6,7 @@
         public override void Up() =>
             Create
                 .Table("USERS")
-                .WithColumn("MemberId")
+                .WithColumn("Id")
                     .AsGuid()
                     .PrimaryKey()
                     .WithDefaultValue(RawSql.Insert("gen_random_uuid()"))

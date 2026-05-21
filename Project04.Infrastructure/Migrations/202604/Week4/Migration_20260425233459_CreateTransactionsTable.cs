@@ -6,7 +6,7 @@
         public override void Up() =>
             Create
                 .Table("TRANSACTIONS")
-                .WithColumn("MemberId")
+                .WithColumn("Id")
                     .AsGuid()
                     .PrimaryKey()
                     .WithDefaultValue(RawSql.Insert("gen_random_uuid()"))
@@ -15,7 +15,7 @@
                     .ForeignKey(
                         foreignKeyName: "FK_TRANSACTIONS_BUDGETS_BudgetId",
                         primaryTableName: "BUDGETS",
-                        primaryColumnName: "MemberId"
+                        primaryColumnName: "Id"
                     )
                     .NotNullable()
                 .WithColumn("Amount")
