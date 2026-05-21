@@ -49,6 +49,13 @@ namespace Project04.Domain.Entities
             return this;
         }
 
+        public UserEntity DetachFromMember()
+        {
+            this.MemberId = null;
+
+            return this;
+        }
+
         public UserEntity ChangePassword(Password password)
         {
             password.ValidateNotNull();

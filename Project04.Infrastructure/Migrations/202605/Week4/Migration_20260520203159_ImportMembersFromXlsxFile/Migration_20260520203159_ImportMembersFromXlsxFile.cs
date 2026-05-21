@@ -122,8 +122,17 @@ namespace Project04.Infrastructure.Migrations
         {
             var dbRepository = this.ServiceProvider.GetRequiredService<IDbRepository>();
 
+            foreach (var userEntity in dbRepository.Users.AsQueryable())
+            {
+                userEntity.DetachFromMember();
+            }
+
+            dbRepository.SaveChanges();
+
             dbRepository.Members.ExecuteDelete();
             dbRepository.Users.ExecuteDelete();
+
+            dbRepository.SaveChanges();
         }
     }
 }
