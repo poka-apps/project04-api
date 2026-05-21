@@ -7,6 +7,8 @@ namespace Project04.Infrastructure.Migrations
     {
         public override void Up()
         {
+            var dbRepository = this.ServiceProvider.GetRequiredService<IDbRepository>();
+            var mediator = this.ServiceProvider.GetRequiredService<IMediator>();
             var commands = new List<CreateMemberCommand>();
             var filePath =  Path.Combine(
                                 AppDomain.CurrentDomain.BaseDirectory, 
@@ -19,14 +21,44 @@ namespace Project04.Infrastructure.Migrations
 
             using var workbook = new XLWorkbook(filePath);
             var worksheet = workbook.Worksheet("Identité membres");
+            var rows = worksheet.RowsUsed().Skip(1);
 
-            foreach (var row in worksheet.RowsUsed())
+            foreach (var row in rows)
             {
-                var firstname = row.Cell(1).GetValue<string>();
-                var lastname = row.Cell(2).GetValue<string>();
-                var nickname = row.Cell(3).GetValue<string>();
+                var firstnameValue = row.Cell(1).GetValue<string>();
+                var lastnameValue = row.Cell(2).GetValue<string>();
+                var nicknameValue = row.Cell(3).GetValue<string>();
                 var city = row.Cell(4).GetValue<string>();
                 var telephone = row.Cell(5).GetValue<string>();
+
+                if (lastnameValue?.Trim().ToLower() == "total")
+                {
+                    continue;
+                }
+
+                var firstname = default(Name);
+                {
+                    if (firstnameValue.HasValue())
+                    {
+                        firstname = new Name(firstnameValue);
+                    }
+                }
+
+                var lastname = default(Name);
+                {
+                    if (lastnameValue.HasValue())
+                    {
+                        lastname = new Name(lastnameValue);
+                    }
+                }
+
+                var nickname = default(Name);
+                {
+                    if (nicknameValue.HasValue())
+                    {
+                        nickname = new Name(nicknameValue);
+                    }
+                }
 
                 var address = default(Address);
                 {
@@ -65,18 +97,33 @@ namespace Project04.Infrastructure.Migrations
                 }                
 
                 var command =   new CreateMemberCommand(
-                                    firstname: firstname?.ToName(),
-                                    lastname: lastname?.ToName(),
-                                    nickname: nickname?.ToName(),
+                                    firstname: firstname,
+                                    lastname: lastname!,
+                                    nickname: nickname,
                                     address: address,
                                     phone: phone
                                 );
                 commands.Add(command);
             }
+
+            dbRepository.BeginTransaction();
+
+            foreach (var command in commands)
+            {
+                mediator
+                    .Send(command)
+                    .Wait();
+            }
+
+            dbRepository.CommitTransaction();
         }
 
         public override void Down()
         {
+            var dbRepository = this.ServiceProvider.GetRequiredService<IDbRepository>();
+
+            dbRepository.Members.ExecuteDelete();
+            dbRepository.Users.ExecuteDelete();
         }
     }
 }
