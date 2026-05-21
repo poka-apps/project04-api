@@ -13,7 +13,7 @@
         { }
 
         public CreateMemberCommand(
-            Name firstName, 
+            Name firstname, 
             Name? lastname = null,
             Name? nickname = null,
             Address? address = null,
@@ -22,9 +22,9 @@
         )
             : this()
         {
-            firstName.ValidateNotNull();
+            firstname.ValidateNotNull();
 
-            Firstname = firstName;
+            Firstname = firstname;
             Lastname = lastname;
             Nickname = nickname;
             Address = address;

@@ -12,7 +12,7 @@
 
         public override void Down() =>
             Alter
-                .Column("Firstname")
+                .Column("FirstName")
                     .OnTable("USERS")
                         .AsString(100)
                         .Nullable();

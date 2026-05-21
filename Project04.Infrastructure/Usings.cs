@@ -17,3 +17,5 @@ global using FluentMigrator.Runner;
 global using Nager.Country;
 global using PhoneNumbers;
 global using ClosedXML.Excel;
+global using Project04.Application.MemberManagement.Commands;
+global using Project04.Extensions;

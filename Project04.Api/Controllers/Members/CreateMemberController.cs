@@ -1,6 +1,5 @@
 ﻿using Project04.Api.Infrastructure.Attributes;
 using Project04.Api.Infrastructure.DTOs;
-using Project04.Application.MemberManagement.Commands;
 
 namespace Project04.Api.Controllers.Members
 {
@@ -23,7 +22,7 @@ namespace Project04.Api.Controllers.Members
         {
             var command =   new CreateMemberCommand(
                                 address: bodyData.Address?.GetAddress(),
-                                firstName: bodyData.FirstName.ToName(),
+                                firstname: bodyData.Firstname.ToName(),
                                 lastname: bodyData.Lastname?.ToName(),
                                 nickname: bodyData.Nickname?.ToName(),
                                 phone: bodyData.Phone?.GetPhone(),
@@ -40,7 +39,7 @@ namespace Project04.Api.Controllers.Members
 
     public class CreateMemberDTORequest
     {
-        public string FirstName { get; set; } = null!;
+        public string Firstname { get; set; } = null!;
         public AddressDTO? Address { get; set; }
         public PhoneDTO? Phone { get; set; }
         public string? Lastname { get; set; }
